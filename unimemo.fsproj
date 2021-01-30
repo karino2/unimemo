@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharp.Data" Version="3.3.3" />
+    <Compile Include="Common.fs" />
+    <Compile Include="Twitter.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>
