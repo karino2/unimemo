@@ -28,7 +28,7 @@ let writeToTemp outname (lines: seq<string>) =
     |> Seq.skip 1
     |> Seq.iter writer.WriteLine
 
-
+// ダウンロードしたら一回目だけ実行。
 let setupTempJson () =
     writeToTemp "temp_tweet.json" (File.ReadLines(tweetPath))
 
