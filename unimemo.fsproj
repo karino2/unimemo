@@ -5,10 +5,14 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Data" Version="3.3.3" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.30" />
+    <PackageReference Include="HtmlAgilityPack.CssSelectors.NetCore" Version="1.2.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Twitter.fs" />
+    <Compile Include="Mixi.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>
