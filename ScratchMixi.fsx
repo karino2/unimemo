@@ -11,7 +11,10 @@
 
 open Common
 
+open Mixi
 open Mixi.Download
+open HtmlAgilityPack
+
 open HtmlAgilityPack.CssSelectors.NetCore
 open System.Text.RegularExpressions
 
@@ -46,13 +49,28 @@ saveAllVoices ()
 
 
 //
-// アドホックな試行錯誤
+// コンバート
 //
 
-let fis = listLV ()
+// diary のコンバート
+open System.IO
+open Mixi.ConvertDiary
 
 
-let lvdoc = loadHtml fis.[0].FullName
 
-lvdoc.QuerySelectorAll("a").Count
+
+convYearDiary 2004
+convYearDiary 2005
+convYearDiary 2006
+
+[2007..2021]
+|> List.map convYearDiary
+
+open Mixi.ConvertVoice
+
+convAllVList ()
+
+//
+// アドホックな試行錯誤
+//
 
