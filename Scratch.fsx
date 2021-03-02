@@ -10,9 +10,11 @@ open Twitter
 
 
 // ダウンロードした一回目だけ実行
-// setupTempJson ()
+setupTempJson ()
+let tweets = TweetParser.Load(__SOURCE_DIRECTORY__ + "/temp_tweet.json")
 
-let tweets = TweetParser.GetSamples()
+// let tweets = TweetParser.GetSamples()
+
 let tdict = tweets2dict tweets
 
 convall tdict

@@ -64,7 +64,7 @@ let toDate sdate =
     DateTime.ParseExact(sdate, tweetDTTemplate, Globalization.CultureInfo("en-US"))
 
 
-type TweetParser= JsonProvider<"temp_tweet.json">
+type TweetParser= JsonProvider<"temp_tweet.json", ResolutionFolder=__SOURCE_DIRECTORY__>
 
 let murl2fname url =
     let murl = Uri url
