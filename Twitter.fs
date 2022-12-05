@@ -20,10 +20,10 @@ let toImagePath fname =
 // 配列としてロード出来るtemp_tweet.jsonを作る
 // 
 
-let tweetPath = sprintf "%s/tweet.js" twitterDataPath
+let tweetPath = sprintf "%s/tweets.js" twitterDataPath
 let writeToTemp outname (lines: seq<string>) =
     use writer = new StreamWriter(outname, false)
-    writer.WriteLine("[ {")
+    writer.WriteLine("[")
     lines
     |> Seq.skip 1
     |> Seq.iter writer.WriteLine

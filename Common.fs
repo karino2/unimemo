@@ -3,7 +3,8 @@ module Common
 open System.IO
 open System.Diagnostics
 
-let unimemoRoot ="../../../Google ドライブ/notes"
+// let unimemoRoot ="../../../Google ドライブ/notes"
+let unimemoRoot ="../../../GoogleDriveMirror/notes"
 let mdroot = $"{unimemoRoot}"
 
 let ensureDir (di: DirectoryInfo) =
