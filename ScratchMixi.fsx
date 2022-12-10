@@ -58,6 +58,10 @@ saveLV "https://mixi.jp/list_voice.pl" "20210211125019"
 saveAllVoices "20210115014748"
 // 6. view_voice以下を移動
 
+// 7. 以下を実行
+open Mixi.ConvertVoice
+convAllVList ()
+
 
 //
 // 新規ダウンロード
