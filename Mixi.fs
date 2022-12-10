@@ -162,21 +162,22 @@ module Download =
 
     let lvBPTPat = Regex("list_voice\.pl\?.*base_post_time=([0-9]+).*")
 
-    let saveLV startUrl =
+    let saveLV startUrl lastBpt =
         let rec saveRec url bpt =
-            let path = $"list_voice/{bpt}.html"
-            printfn $"Downlaoding: {path}"
-            Thread.Sleep(waitTime)
-            mixiGet url
-            
-             path
-            let lvdoc = loadHtml path
-            match nextHrefLV lvdoc with
-            | Some href->
-                let m = lvBPTPat.Match(href)
-                let nextBpt = m.Groups.[1].Value
-                saveRec $"https://mixi.jp/{href}" nextBpt
-            | _-> ()
+            if bpt <= lastBpt then
+                ()
+            else
+                let path = $"list_voice/{bpt}.html"
+                printfn $"Downlaoding: {path}"
+                Thread.Sleep(waitTime)
+                mixiGet url path
+                let lvdoc = loadHtml path
+                match nextHrefLV lvdoc with
+                | Some href->
+                    let m = lvBPTPat.Match(href)
+                    let nextBpt = m.Groups.[1].Value
+                    saveRec $"https://mixi.jp/{href}" nextBpt
+                | _-> ()
         
         let now = DateTime.Now
         let nowBPT = now.ToString("yyyyMMddHHmmss")
@@ -186,27 +187,28 @@ module Download =
 
     let voicePTPat = Regex("https://mixi.jp/view_voice\.pl\?.*post_time=([0-9]+).*")
 
-    let saveVoices (lvdoc:HtmlDocument) =
+    let saveVoices lastpt (lvdoc:HtmlDocument) =
         lvdoc.QuerySelectorAll(".moreLink01.hrule a") 
         |> Seq.map (fun a->a.GetAttributeValue("href", ""))
         |> Seq.map (fun href-> 
                     voicePTPat.Match(href).Groups.[1].Value, href)
         |> Seq.toList
         |> List.iter (fun (pt, url) ->
-            let fname = $"view_voice/{pt}_vv.html"
-            printfn $"Downloading {fname}"
-            Thread.Sleep(waitTime)
-            mixiGet url fname)
+            if pt > lastpt then
+                let fname = $"view_voice/{pt}_vv.html"
+                printfn $"Downloading {fname}"
+                Thread.Sleep(waitTime)
+                mixiGet url fname)
 
     let listLV () =
         let di = DirectoryInfo  $"{mixiOrigPath}/list_voice/"
         di.GetFiles()
         |> Array.filter (fun fi -> fi.Name.EndsWith($"html"))
 
-    let saveAllVoices () =
+    let saveAllVoices lastpt =
         listLV ()
         |> Array.map (fun fi -> loadHtml fi.FullName)
-        |> Array.map saveVoices 
+        |> Array.map (saveVoices lastpt)
 
 
 module ConvertDiary =
