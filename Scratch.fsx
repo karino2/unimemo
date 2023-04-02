@@ -81,6 +81,8 @@ File.WriteAllLines(dest, mdall)
 
 #r "nuget: FSharp.Data"
 #r "System.Xml.Linq.dll"
+open System
+
 #load "Common.fs"
 open System.IO
 
@@ -172,7 +174,7 @@ let rssItem2md (rssItem:RssItem) =
 rssItem2md (xmlItem2RssItem items[0])
 
 
-let podcast_md_path = $"{Common.unimemoRoot}/md/Anchor_md/anchor.md"
+let podcast_md_path = $"{Common.unimemoRoot}/md/anchor_md/anchor.md"
 
 let mds = items |> Array.map xmlItem2RssItem
                           |> Array.map rssItem2md
