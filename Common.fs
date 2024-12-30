@@ -11,7 +11,7 @@ let ensureDir (di: DirectoryInfo) =
   if not di.Exists then
       Directory.CreateDirectory di.FullName |> ignore
 
-let saveText (fi:FileInfo) text =
+let saveText (fi:FileInfo) (text:string) =
   File.WriteAllText(fi.FullName, text)
 
 
